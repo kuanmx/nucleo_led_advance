@@ -15,8 +15,7 @@ go to Project -> Edit Settings -> CppProperties.json and paste the following
 			"defines": [
 
 			],
-			"compilerSwitches": "-std=c++14",
-			"intelliSenseMode": "linux-gcc-arm"
+			"compilerSwitches": "-std=c++14"
 		}
 	]
 }
@@ -24,8 +23,9 @@ go to Project -> Edit Settings -> CppProperties.json and paste the following
 #include "intelliSense.h"
 #include "mbed.h"
 
-Timer timer_fast; 
-Timer timer_slow; 
+Timer ledBrightness; 
+Ticker reportBrightness; 
+Ticker blinkingLed; 
 
 InterruptIn usrBtn(USER_BUTTON); 
 
@@ -36,23 +36,40 @@ PwmOut glowLed(D9);
 change baud rate at mbed_config.h*/
 Serial serial(SERIAL_TX, SERIAL_RX); 
 
-void interruptRise() {
+void flip() {
+	blinkLed = !blinkLed;
+}
 
+void interruptFall() {
+	serial.printf("User pressed button. \n"); 
+	blinkingLed.detach(); 
+	blinkLed = 1.0f; 
+}
+
+void interruptRise() {
+	serial.printf("User released button. \n"); 
+	blinkingLed.attach(&flip, 0.5);
+}
+
+void report() {
+	serial.printf("ledBrightness: %f \n", glowLed.read());
 }
 
 int main() {
+	// initialize 
 	glowLed = 0.0f;
-	serial.printf("System start. "); 
-	timer_fast.start(); 
-	timer_slow.start(); 
+	ledBrightness.start();
+	reportBrightness.attach(&report, 0.5);  // attach event to Ticker for time recurring interupt
+	blinkingLed.attach(&flip, 0.5);			// attach event to Ticker for time recurring interupt
+	auto s = 1;
+
+	serial.printf("System start. \n\n"); 
     while(1) {
-		auto val1 = timer_fast.read_us(); 
-		auto val2 = timer_slow.read_us();
-
-		serial.printf("Timer_fast: %d ", val1);
-		serial.printf("Timer_slow: %d \n", val2);
-
-		wait(0.5); 
+		glowLed.write(ledBrightness.read()/2);				
+		if (ledBrightness.read() > 2) ledBrightness.reset();  // ledBrightness reset every 2 seconds
+		
+		usrBtn.fall(&interruptFall);
+		usrBtn.rise(&interruptRise);
 		/*
         blinkLed = 1; // LED is ON
         wait(0.2); // 200 ms
