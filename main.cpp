@@ -61,15 +61,15 @@ int main() {
 	ledBrightness.start();
 	reportBrightness.attach(&report, 0.5);  // attach event to Ticker for time recurring interupt
 	blinkingLed.attach(&flip, 0.5);			// attach event to Ticker for time recurring interupt
-	auto s = 1;
+
+	usrBtn.fall(&interruptFall);
+	usrBtn.rise(&interruptRise);
 
 	serial.printf("System start. \n\n"); 
     while(1) {
 		glowLed.write(ledBrightness.read()/2);				
 		if (ledBrightness.read() > 2) ledBrightness.reset();  // ledBrightness reset every 2 seconds
 		
-		usrBtn.fall(&interruptFall);
-		usrBtn.rise(&interruptRise);
 		/*
         blinkLed = 1; // LED is ON
         wait(0.2); // 200 ms
