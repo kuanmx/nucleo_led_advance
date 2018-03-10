@@ -16,6 +16,9 @@
 *.dylib
 *.dll
 
+# Folder
+BUILD/
+
 # Fortran module files
 *.mod
 *.smod

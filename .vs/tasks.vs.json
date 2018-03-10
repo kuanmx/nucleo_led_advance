@@ -1,0 +1,34 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskName": "task-Nucleo_blink_led",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
+    },
+    {
+      "taskName": "flash",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch",
+      "command": "${env.COMSPEC}",
+      "args": [
+        "copy BUILD\\Nucleo_blink_led.bin H:"
+      ]
+    },
+    {
+      "taskName": "task-Nucleo_blink_led",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Nucleo_blink_led",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Makefile",
+      "appliesTo": "Makefile",
+      "type": "launch"
+    }
+  ]
+}
