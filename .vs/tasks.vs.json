@@ -12,12 +12,22 @@
       "type": "launch",
       "command": "${env.COMSPEC}",
       "args": [
-        "copy BUILD\\Nucleo_blink_led.bin H:"
+        "copy BUILD\\Nucleo_blink_led.bin F:"
       ]
     },
     {
       "taskName": "task-Nucleo_blink_led",
       "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Nucleo_blink_led",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
+    },
+    {
+      "taskName": "task-Makefile",
+      "appliesTo": "Makefile",
       "type": "launch"
     },
     {
