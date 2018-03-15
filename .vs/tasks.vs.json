@@ -44,6 +44,11 @@
       "taskName": "task-Nucleo_blink_led",
       "appliesTo": "BUILD/Nucleo_blink_led.bin",
       "type": "launch"
+    },
+    {
+      "taskName": "task-Nucleo_blink_led",
+      "appliesTo": "BUILD/Nucleo_blink_led.bin",
+      "type": "launch"
     }
   ]
 }

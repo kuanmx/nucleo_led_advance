@@ -68,8 +68,8 @@ int main() {
 	serial.printf("System start. \n\n"); 
     while(1) {
 		glowLed.write(ledBrightness.read()/2);
-		float k = ledBrightness.read(); 
-		if (ledBrightness.read() > 2) ledBrightness.reset();  // ledBrightness reset every 2 seconds
+		int k = ledBrightness.read_us(); 
+		if (k > 2000000) ledBrightness.reset();  // ledBrightness reset every 2 seconds
 		
 		/*
         blinkLed = 1; // LED is ON

@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\BUILD"
+    "\\BUILD",
+    "\\mbed"
   ],
-  "SelectedNode": "\\BUILD\\Nucleo_blink_led.bin",
+  "SelectedNode": "\\main.cpp",
   "PreviewInSolutionExplorer": false
 }
